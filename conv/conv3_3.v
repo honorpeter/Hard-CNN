@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 // convolution unit
 
-module conv#(parameter WIDTH = 9)
+module conv3_3#(parameter WIDTH = 9)
 (
     input clk,
     input rst_n,
