@@ -6,7 +6,7 @@ module conv_PE#(parameter WIDTH = 9)
     input clk,
     input rst_n,
     // initial signal init为高进入初始化状态，为低进入正常运行状态
-    input [0:0] init;
+    input init;
     // data input
     input [WIDTH-1:0] data_in [31:0];
     // weight input
@@ -19,8 +19,8 @@ module conv_PE#(parameter WIDTH = 9)
     input [WIDTH-1:0] weight_in20 [2:0];
     input [WIDTH-1:0] weight_in21 [2:0];
     input [WIDTH-1:0] weight_in22 [2:0];
-
-    output
+	// data output
+    output [WIDTH-1:0] data_out [2:0];
 );
 // 3*32 input buffer
 reg [WIDTH-1:0] input_buffer0 [31:0];
@@ -33,9 +33,9 @@ reg [WIDTH-1:0] mem2 [2:0];
 // clock count
 reg [5:0] clk_counter;
 // 3*3 output buffer
-reg [WIDTH-1] output_buffer0 [2:0];
-reg [WIDTH-1] output_buffer1 [2:0];
-reg [WIDTH-1] output_buffer2 [2:0];
+reg [WIDTH-1] output_buffer0;
+reg [WIDTH-1] output_buffer1;
+reg [WIDTH-1] output_buffer2;
 
 initial
 begin
@@ -72,9 +72,13 @@ begin
     mem1[0] = 0;mem1[1] = 0;mem1[2] = 0;
     mem2[0] = 0;mem2[1] = 0;mem2[2] = 0;
 
-    output_buffer0[0] = 0;output_buffer0[1] = 0;output_buffer0[2] = 0;
-    output_buffer1[0] = 0;output_buffer1[1] = 0;output_buffer1[2] = 0;
-    output_buffer2[0] = 0;output_buffer2[1] = 0;output_buffer2[2] = 0;
+    output_buffer0 = 0;
+    output_buffer1 = 0;
+    output_buffer2 = 0;
+
+	data_out[0] = 0;
+	data_out[1] = 0;
+	data_out[2] = 0;
 
     clk_counter = 0;
 end
@@ -491,21 +495,22 @@ end
 conv_unit conv_unit0(clk,rst_n,
                     mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
                     weight_in00[0],weight_in00[1],weight_in00[2],weight_in01[0],weight_in01[1],weight_in01[2],weight_in02[0],weight_in02[1],weight_in02[2],
-                    );
+                    output_buffer0);
 conv_unit conv_unit1(clk,rst_n,
                     mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
                     weight_in10[0],weight_in10[1],weight_in10[2],weight_in11[0],weight_in11[1],weight_in11[2],weight_in12[0],weight_in12[1],weight_in12[2],
-                    );
+                    output_buffer1);
 conv_unit conv_unit2(clk,rst_n,
                     mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
                     weight_in20[0],weight_in20[1],weight_in20[2],weight_in21[0],weight_in21[1],weight_in21[2],weight_in22[0],weight_in22[1],weight_in22[2],
-                    );
+                    output_buffer2);
 
-
-
-
-
-
-
+// 输出部分
+always@(posedge clk)
+begin
+	data_out[0] <= output_buffer0;
+	data_out[1] <= output_buffer1;
+	data_out[2] <= output_buffer2;
+end
 
 endmodule

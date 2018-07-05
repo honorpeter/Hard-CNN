@@ -29,7 +29,7 @@ reg [2 * WIDTH - 1:0] p7;
 reg [2 * WIDTH - 1:0] p8;
 
 reg [2 * WIDTH - 1:0] sum;
-reg [0:0] out_ready;
+reg out_ready;
 reg [2 * WIDTH - 1:0] out_buf;
 
 initial 
