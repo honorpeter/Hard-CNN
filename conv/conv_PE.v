@@ -10,20 +10,32 @@ module conv_PE#(parameter WIDTH = 9)
     // data input
     input [WIDTH-1:0] data_in [31:0];
     // weight input
-    input [WIDTH-1:0] weight_in [2:0];
+    input [WIDTH-1:0] weight_in00 [2:0];
+    input [WIDTH-1:0] weight_in01 [2:0];
+    input [WIDTH-1:0] weight_in02 [2:0];
+    input [WIDTH-1:0] weight_in10 [2:0];
+    input [WIDTH-1:0] weight_in11 [2:0];
+    input [WIDTH-1:0] weight_in12 [2:0];
+    input [WIDTH-1:0] weight_in20 [2:0];
+    input [WIDTH-1:0] weight_in21 [2:0];
+    input [WIDTH-1:0] weight_in22 [2:0];
+
     output
 );
 // 3*32 input buffer
 reg [WIDTH-1:0] input_buffer0 [31:0];
 reg [WIDTH-1:0] input_buffer1 [31:0];
 reg [WIDTH-1:0] input_buffer2 [31:0];
-// 3*3 mem *3
+// 3*3 mem to get block from input_buffer
 reg [WIDTH-1:0] mem0 [2:0];
 reg [WIDTH-1:0] mem1 [2:0];
 reg [WIDTH-1:0] mem2 [2:0];
 // clock count
 reg [5:0] clk_counter;
-
+// 3*3 output buffer
+reg [WIDTH-1] output_buffer0 [2:0];
+reg [WIDTH-1] output_buffer1 [2:0];
+reg [WIDTH-1] output_buffer2 [2:0];
 
 initial
 begin
@@ -59,6 +71,10 @@ begin
     mem0[0] = 0;mem0[1] = 0;mem0[2] = 0;
     mem1[0] = 0;mem1[1] = 0;mem1[2] = 0;
     mem2[0] = 0;mem2[1] = 0;mem2[2] = 0;
+
+    output_buffer0[0] = 0;output_buffer0[1] = 0;output_buffer0[2] = 0;
+    output_buffer1[0] = 0;output_buffer1[1] = 0;output_buffer1[2] = 0;
+    output_buffer2[0] = 0;output_buffer2[1] = 0;output_buffer2[2] = 0;
 
     clk_counter = 0;
 end
@@ -471,7 +487,19 @@ begin
 
 end
 
-
+// 运算部分
+conv_unit conv_unit0(clk,rst_n,
+                    mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
+                    weight_in00[0],weight_in00[1],weight_in00[2],weight_in01[0],weight_in01[1],weight_in01[2],weight_in02[0],weight_in02[1],weight_in02[2],
+                    );
+conv_unit conv_unit1(clk,rst_n,
+                    mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
+                    weight_in10[0],weight_in10[1],weight_in10[2],weight_in11[0],weight_in11[1],weight_in11[2],weight_in12[0],weight_in12[1],weight_in12[2],
+                    );
+conv_unit conv_unit2(clk,rst_n,
+                    mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
+                    weight_in20[0],weight_in20[1],weight_in20[2],weight_in21[0],weight_in21[1],weight_in21[2],weight_in22[0],weight_in22[1],weight_in22[2],
+                    );
 
 
 

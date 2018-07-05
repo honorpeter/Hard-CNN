@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 // convolution layer control module
 
-module conv_ctrl#(parameter WIDTH = 9)
+module conv_top#(parameter WIDTH = 9)
 (
     input clk,
     input rst_n,
