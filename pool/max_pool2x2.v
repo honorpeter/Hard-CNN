@@ -1,7 +1,8 @@
 `timescale 1ns / 1ps
 // max pooling
+// function: pool a 2*2 block
 
-module max_pool#(parameter WIDTH = 9)
+module max_poo2x2#(parameter WIDTH = 9)
 (
     input clk,
     input rst_n,

@@ -1,5 +1,6 @@
 `timescale 1ns / 1ps
 // ReLU unit for conv
+// attention: only one number
 
 module ReLU_unit#(parameter WIDTH = 9)
 (
