@@ -196,7 +196,7 @@ begin
             default:
         endcase
     end
-    if((!rst_n)&&(!init))
+    if((rst_n)&&(!init))
     begin
         case (clk_counter)
             0:begin

@@ -5,7 +5,12 @@ module mem30x30#(parameter WIDTH = 9)
 (
     input clk,
     input rst_n,
-    input enable,
+
+    input rd_en,            // read enable
+    input wr_en,            // write enable
+
+    input [9:0] rdaddr,     // read address: [9:5] target memline + [4:0] mem address
+    input [9:0] wraddr,     // write address: [9:5] target memline + [4:0] mem address
 
     input [WIDTH-1:0] data_in,
 
@@ -110,16 +115,108 @@ assign memline29 = {mem29[0],mem29[1],mem29[2],mem29[3],mem29[4],mem29[5],mem29[
 
 
 /**********************************************************************************************************************/
-/************************************************** INPUT Logic *******************************************************/
+/************************************************ READ & WRITE Logic **************************************************/
 /**********************************************************************************************************************/
-reg [30*WORD_WIDETH-1:0] input_buffer;
-reg [4:0] input_counter;
 reg [4:0] target_line;
-reg buffer_ready
+reg [4:0] addr;
 
-// clock counter
-reg [9:0] clk_counter;
+initial
+begin
+    target_line = 0;
+    addr = 0;
+end
 
+// resolve target line
+always@(posedge clk)
+begin
+    if(rd_en) begin
+        target_line <= rdaddr[9:5];
+        addr <= rdaddr[4:0];
+    end
+    else if(wr_en) begin
+        target_line <= wraddr[9:5];
+        addr <= wraddr[4:0];
+    end
+    else begin
+        target_line <= 0;
+        addr <= 0;
+    end
+end
 
+always@(posedge clk or negedge rst_n)
+begin
+    if(rst_n)
+        data_out <= 0;
+    else if(rd_en)
+        case (target_line)
+			0:  data_out <= memline00[WIDTH*addr+8:WIDTH*addr];
+			1:  data_out <= memline01[WIDTH*addr+8:WIDTH*addr];
+			2:  data_out <= memline02[WIDTH*addr+8:WIDTH*addr];
+			3:  data_out <= memline03[WIDTH*addr+8:WIDTH*addr];
+			4:  data_out <= memline04[WIDTH*addr+8:WIDTH*addr];
+			5:  data_out <= memline05[WIDTH*addr+8:WIDTH*addr];
+			6:  data_out <= memline06[WIDTH*addr+8:WIDTH*addr];
+			7:  data_out <= memline07[WIDTH*addr+8:WIDTH*addr];
+			8:  data_out <= memline08[WIDTH*addr+8:WIDTH*addr];
+			9:  data_out <= memline09[WIDTH*addr+8:WIDTH*addr];
+			10: data_out <= memline10[WIDTH*addr+8:WIDTH*addr];
+			11: data_out <= memline11[WIDTH*addr+8:WIDTH*addr];
+			12: data_out <= memline12[WIDTH*addr+8:WIDTH*addr];
+			13: data_out <= memline13[WIDTH*addr+8:WIDTH*addr];
+			14: data_out <= memline14[WIDTH*addr+8:WIDTH*addr];
+			15: data_out <= memline15[WIDTH*addr+8:WIDTH*addr];
+			16: data_out <= memline16[WIDTH*addr+8:WIDTH*addr];
+			17: data_out <= memline17[WIDTH*addr+8:WIDTH*addr];
+			18: data_out <= memline18[WIDTH*addr+8:WIDTH*addr];
+			19: data_out <= memline19[WIDTH*addr+8:WIDTH*addr];
+			20: data_out <= memline20[WIDTH*addr+8:WIDTH*addr];
+			21: data_out <= memline21[WIDTH*addr+8:WIDTH*addr];
+			22: data_out <= memline22[WIDTH*addr+8:WIDTH*addr];
+			23: data_out <= memline23[WIDTH*addr+8:WIDTH*addr];
+			24: data_out <= memline24[WIDTH*addr+8:WIDTH*addr];
+			25: data_out <= memline25[WIDTH*addr+8:WIDTH*addr];
+			26: data_out <= memline26[WIDTH*addr+8:WIDTH*addr];
+			27: data_out <= memline27[WIDTH*addr+8:WIDTH*addr];
+			28: data_out <= memline28[WIDTH*addr+8:WIDTH*addr];
+			29: data_out <= memline29[WIDTH*addr+8:WIDTH*addr];
+            default:
+        endcase
+    else if(wr_en)
+        case (target_line)
+			0:  memline00[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			1:  memline01[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			2:  memline02[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			3:  memline03[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			4:  memline04[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			5:  memline05[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			6:  memline06[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			7:  memline07[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			8:  memline08[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			9:  memline09[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			10: memline10[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			11: memline11[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			12: memline12[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			13: memline13[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			14: memline14[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			15: memline15[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			16: memline16[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			17: memline17[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			18: memline18[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			19: memline19[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			20: memline20[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			21: memline21[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			22: memline22[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			23: memline23[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			24: memline24[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			25: memline25[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			26: memline26[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			27: memline27[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			28: memline28[WIDTH*addr+8:WIDTH*addr] <= data_in;
+			29: memline29[WIDTH*addr+8:WIDTH*addr] <= data_in;
+            default: 
+        endcase
+    else
+        data_out <= 9'bz;//读写均无效时，为高阻态。若不加此句，时序会出现问题
+end
 
 endmodule
