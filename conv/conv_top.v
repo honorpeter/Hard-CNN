@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
-// convolution layer control module
+// convolution layer top control module
+// function: parallel executing convolutional result of one 32*32 picture with 3 different kernels,
+//           get three 30*30 pictures
 
 module conv_top#(parameter WIDTH = 9)
 (

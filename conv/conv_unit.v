@@ -1,5 +1,6 @@
 `timescale 1ns / 1ps
 // convolution unit 3*3
+// function: executing two 3*3 matrix convolution, get one summary
 
 module conv_unit#(parameter WIDTH = 9)
 (
@@ -62,8 +63,6 @@ mul mul8(a22,b22,p8);
 adder add0(p0,sum,out_buf);
 
 adder_tree adder_tree0(p0,p1,p2,p3,p4,p5,p6,p7,p8,out_buf);
-
-ReLU ReLU0(out_buf,out_buf);
 
 // out_ready信号控制是否可以输出   // 需要否?
 assign out_ready = (clk_counter == 0)?(1):(0);

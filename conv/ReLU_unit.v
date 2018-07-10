@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
-// ReLU for conv
+// ReLU unit for conv
 
-module ReLU#(parameter WIDTH = 9)
+module ReLU_unit#(parameter WIDTH = 9)
 (
     input signed [2*WIDTH-1:0] in,
     output [2*WIDTH-1:0] out

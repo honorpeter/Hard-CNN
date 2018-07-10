@@ -1,5 +1,7 @@
 `timescale 1ns / 1ps
 // convolution PE unit
+// function: parallel executing 3 sets of convolutional calculation,
+//			 matrix size is 3*3
 
 module conv_PE#(parameter WIDTH = 9)
 (
@@ -9,7 +11,7 @@ module conv_PE#(parameter WIDTH = 9)
     input init;
     // data input
     input [WIDTH-1:0] data_in [31:0];
-    // weight input
+    // weight input: three 3*3 size weights(conv kernel)
     input [WIDTH-1:0] weight_in00 [2:0];
     input [WIDTH-1:0] weight_in01 [2:0];
     input [WIDTH-1:0] weight_in02 [2:0];
