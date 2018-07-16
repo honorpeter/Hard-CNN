@@ -5,9 +5,9 @@ Design a CNN with verilog.
 
 My goal: a naive AlexNet.
 
-# Progress
+# Progress (up-to-now)
 
-## 1. convolutionary layer
+## 1. Convolutionary Layer
 ### 1) calculate module
     adder.v: add 2 signed numbers together, word_width = 9
 
@@ -24,7 +24,7 @@ My goal: a naive AlexNet.
 ### 3) other module
     mem30x30: memory, size 30*30, word_width = 9
 
-## 2. pooling(max) layer
+## 2. Pooling(max) Layer
 ### 1) calculate module
     max.v: get the larger one between 2 signed numbers
 
@@ -32,7 +32,7 @@ My goal: a naive AlexNet.
 ### 2) control module
     pool_ctrl.v: 
 
-## 3. fully-connected layer
+## 3. Fully-Connected Layer
 
 
 # To-Do
