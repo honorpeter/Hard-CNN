@@ -4,12 +4,13 @@ module conv_ctrl#(parameter WIDTH = 9)
 (
     input clk,
     input rst_n,
-    input en_init,// 初始化状态使能信号
+    input en_init,// 初始化状态使能信号，为高进行初始化，各信号赋初始值
     input [WIDTH-1:0] image_in_raw [31:0],// 原始输入数据
     input [WIDTH-1:0] weight_in_raw [26:0],// 原始输入数据
 
     output PE_en,// PE使能信号
     output PE_init_mode,// PE初始化状态控制信号
+	output [1:0] PE_init_data_flow_counter,// PE初始化状态数据预存储计数器，00不进行预存储，01写入第一行，10写入第二行，11写入第三行
     output [2:0] mem_wr_en,// 存储器写入使能信号
     output [2:0] mem_rd_en,// 存储器读取使能信号
     output [WIDTH-1:0] image_in_prssd [31:0],//处理过后的数据，prssd:prosessed
@@ -147,6 +148,14 @@ end
 
 always@(posedge clk)
 begin
+	if(rst_n && !en_init && (counter != ))
+		counter <= counter + 1;
+	else
+		counter <= 0;
+end
+
+always@(posedge clk)
+begin
     if(en_init) begin
         PE_en <= 0;
         PE_init_mode <= 1;
@@ -155,7 +164,26 @@ begin
     end
     else begin
         case (counter)
-            0:
+            0:begin
+				{PE_en,PE_init_mode,PE_init_data_flow_counter} <= 4'b1101;
+				mem_rd_en <= 3'b000;
+				mem_wr_en <= 3'b000;
+			end
+            1:begin
+				{PE_en,PE_init_mode,PE_init_data_flow_counter} <= 4'b1110;
+				mem_rd_en <= 3'b000;
+				mem_wr_en <= 3'b000;
+			end
+            2:begin
+				{PE_en,PE_init_mode,PE_init_data_flow_counter} <= 4'b1111;
+				mem_rd_en <= 3'b000;
+				mem_wr_en <= 3'b000;
+			end
+            3:begin
+				{PE_en,PE_init_mode,PE_init_data_flow_counter} <= 4'b1100;
+				mem_rd_en <= 3'b000;
+				mem_wr_en <= 3'b000;
+			end
             default: 
         endcase
     end

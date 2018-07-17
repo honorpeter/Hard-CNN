@@ -28,6 +28,7 @@ reg [2 * WIDTH - 1:0] s21;
 reg [2 * WIDTH - 1:0] s3;
 
 initial
+begin
     s10 = 0;
     s11 = 0;
     s12 = 0;
