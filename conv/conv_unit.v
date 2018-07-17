@@ -43,7 +43,6 @@ begin
     p7 = 0; 
     p8 = 0;
     sum = 0;
-    out = 0;
 end
 
 mul mul0(a00,b00,p0);
