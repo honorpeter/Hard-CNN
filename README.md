@@ -48,3 +48,12 @@ change max_pool2x2 to max_pool, which could process any size of blocks
     dropout
 
 # Reference
+[Stanford CS231n: Convolutional Neural Networks for Visual Recognition](https://link.zhihu.com/?target=http%3A//vision.stanford.edu/teaching/cs231n/index.html)
+
+[CS231n官方笔记翻译](https://zhuanlan.zhihu.com/p/21930884)
+
+[当我们在谈论 Deep Learning：CNN 及其常见架构 (知乎专栏)](https://zhuanlan.zhihu.com/p/27023778)
+
+[CNN基本公式分析](http://www.datakit.cn/blog/2016/03/23/bp_cnn.html)
+
+[如何用FPGA加速卷积神经网络 (知乎)](https://www.zhihu.com/question/64411349)
