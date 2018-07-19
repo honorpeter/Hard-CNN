@@ -85,5 +85,14 @@ begin
 end
 
 // output logic
+always@(posedge clk)
+begin
+    if(rst_n)
+    begin
+        data_out0 <= r0[0];     data_out1 <= r0[1];     data_out2 <= r0[2];
+        data_out3 <= r1[0];     data_out4 <= r1[1];     data_out5 <= r1[2];
+        data_out6 <= r2[0];     data_out7 <= r2[1];     data_out8 <= r2[2];
+    end
+end
 
 endmodule
