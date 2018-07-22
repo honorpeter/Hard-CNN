@@ -6,8 +6,10 @@ module adder#(parameter WIDTH = 9)
     input signed [2 * WIDTH - 1:0] a,
     input signed [2 * WIDTH - 1:0] b,
 
-    output reg signed[2 * WIDTH - 1:0] sum
+    output wire signed [2 * WIDTH - 1:0] out
 );
+
+reg [2 * WIDTH - 1:0] sum;
 
 always@(*)
 begin
@@ -22,5 +24,7 @@ begin
 		sum[2*WIDTH - 1] <= (b[2*WIDTH - 2:0] > a[2*WIDTH - 2:0])?(b[2*WIDTH - 1]):(a[2*WIDTH - 1]);
 		end
 end
+
+assign out = sum;
 
 endmodule

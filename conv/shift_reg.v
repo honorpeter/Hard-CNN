@@ -112,7 +112,6 @@ begin
 	out_buffer = {w0,w1,w2,w3,w4,w5,w6,w7,w8};
 end
 
-
 assign {data_out0,data_out1,data_out2,data_out3,data_out4,data_out5,data_out6,data_out7,data_out8} = out_buffer;
 
 endmodule

@@ -15,46 +15,34 @@ module conv_unit#(parameter WIDTH = 9)
     input [WIDTH - 1:0] b10, input [WIDTH - 1:0] b11, input [WIDTH - 1:0] b12,
     input [WIDTH - 1:0] b20, input [WIDTH - 1:0] b21, input [WIDTH - 1:0] b22,
 
-    output [WIDTH - 1:0] out
+    output [2 * WIDTH - 1:0] out
 );
 
 // product
-reg [2 * WIDTH - 1:0] p0;
-reg [2 * WIDTH - 1:0] p1;
-reg [2 * WIDTH - 1:0] p2;
-reg [2 * WIDTH - 1:0] p3;
-reg [2 * WIDTH - 1:0] p4;
-reg [2 * WIDTH - 1:0] p5;
-reg [2 * WIDTH - 1:0] p6;
-reg [2 * WIDTH - 1:0] p7;
-reg [2 * WIDTH - 1:0] p8;
+wire [2 * WIDTH - 1:0] p0;
+wire [2 * WIDTH - 1:0] p1;
+wire [2 * WIDTH - 1:0] p2;
+wire [2 * WIDTH - 1:0] p3;
+wire [2 * WIDTH - 1:0] p4;
+wire [2 * WIDTH - 1:0] p5;
+wire [2 * WIDTH - 1:0] p6;
+wire [2 * WIDTH - 1:0] p7;
+wire [2 * WIDTH - 1:0] p8;
 
-reg [2 * WIDTH - 1:0] sum;
+wire [2 * WIDTH - 1:0] out_buffer;
 
-initial 
-begin 
-    p0 = 0; 
-    p1 = 0; 
-    p2 = 0; 
-    p3 = 0; 
-    p4 = 0; 
-    p5 = 0; 
-    p6 = 0; 
-    p7 = 0; 
-    p8 = 0;
-    sum = 0;
-end
+mul mul0(.a(a00),.b(b00),.out(p0));
+mul mul1(.a(a01),.b(b01),.out(p1));
+mul mul2(.a(a02),.b(b02),.out(p2));
+mul mul3(.a(a10),.b(b10),.out(p3));
+mul mul4(.a(a11),.b(b11),.out(p4));
+mul mul5(.a(a12),.b(b12),.out(p5));
+mul mul6(.a(a20),.b(b20),.out(p6));
+mul mul7(.a(a21),.b(b21),.out(p7));
+mul mul8(.a(a22),.b(b22),.out(p8));
 
-mul mul0(a00,b00,p0);
-mul mul1(a01,b01,p1);
-mul mul2(a02,b02,p2);
-mul mul3(a10,b10,p3);
-mul mul4(a11,b11,p4);
-mul mul5(a12,b12,p5);
-mul mul6(a20,b20,p6);
-mul mul7(a21,b21,p7);
-mul mul8(a22,b22,p8);
+adder_tree adder_tree0(.a0(p0),.a1(p1),.b0(p2),.b1(p3),.c0(p4),.c1(p5),.d0(p6),.d1(p7),.e(p8),.sum(out_buffer));
 
-adder_tree adder_tree0(p0,p1,p2,p3,p4,p5,p6,p7,p8,out);
+assign out = out_buffer;
 
 endmodule

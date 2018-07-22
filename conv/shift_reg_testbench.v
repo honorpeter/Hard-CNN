@@ -19,15 +19,15 @@ wire [WIDTH-1:0] data_out8;
 
 initial
 begin
-       clk = 1'b0;
-       rst_n = 1'b1;
-       data_in = 0;
+    clk = 1'b0;
+    rst_n = 1'b1;
+    data_in = 0;
 end
 
 always@(*)
 begin
     #1
-    clk <= ~clk;
+    clk = ~clk;
 end
 
 always@(posedge clk)
