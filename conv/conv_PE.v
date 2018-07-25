@@ -84,22 +84,18 @@ reg [WIDTH-1:0] mem0 [2:0];
 reg [WIDTH-1:0] mem1 [2:0];
 reg [WIDTH-1:0] mem2 [2:0];
 // clock count
-reg [5:0] clk_counter;
-// 3*3 output buffer
-reg [WIDTH-1:0] output_buffer0;
-reg [WIDTH-1:0] output_buffer1;
-reg [WIDTH-1:0] output_buffer2;
+reg [5:0] counter;
 
 initial
 begin
-    clk_counter = 0;
+    counter = 0;
 end
 
 always@(posedge clk)
 begin
     if(init)
     begin
-        case (clk_counter)
+        case (counter)
             0:begin
 				input_buffer0[0] <= data_in00;
 				input_buffer0[1] <= data_in01;
@@ -133,7 +129,7 @@ begin
 				input_buffer0[29] <= data_in29;
 				input_buffer0[30] <= data_in30;
 				input_buffer0[31] <= data_in31;
-                clk_counter <= clk_counter + 6'b000001;
+                counter <= counter + 6'b000001;
             end
             1:begin
 				input_buffer1[0] <= data_in00;
@@ -168,7 +164,7 @@ begin
 				input_buffer1[29] <= data_in29;
 				input_buffer1[30] <= data_in30;
 				input_buffer1[31] <= data_in31;
-                clk_counter <= clk_counter + 6'b000001;
+                counter <= counter + 6'b000001;
             end
             2: begin
 				input_buffer2[0] <= data_in00;
@@ -203,193 +199,193 @@ begin
 				input_buffer2[29] <= data_in29;
 				input_buffer2[30] <= data_in30;
 				input_buffer2[31] <= data_in31;
-                clk_counter <= clk_counter + 6'b000001;
+                counter <= counter + 6'b000001;
             end
-            default:clk_counter <= 6'b000000;
+            default:counter <= 6'b000000;
         endcase
     end
     if((rst_n)&&(!init))
     begin
-        case (clk_counter)
+        case (counter)
             0:begin
 				mem0[0] <= input_buffer0[0];mem0[1] <= input_buffer0[1];mem0[2] <= input_buffer0[2];
 				mem1[0] <= input_buffer1[0];mem1[1] <= input_buffer1[1];mem1[2] <= input_buffer1[2];
 				mem2[0] <= input_buffer2[0];mem2[1] <= input_buffer2[1];mem2[2] <= input_buffer2[2];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			1:begin
 				mem0[0] <= input_buffer0[1];mem0[1] <= input_buffer0[2];mem0[2] <= input_buffer0[3];
 				mem1[0] <= input_buffer1[1];mem1[1] <= input_buffer1[2];mem1[2] <= input_buffer1[3];
 				mem2[0] <= input_buffer2[1];mem2[1] <= input_buffer2[2];mem2[2] <= input_buffer2[3];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			2:begin
 				mem0[0] <= input_buffer0[2];mem0[1] <= input_buffer0[3];mem0[2] <= input_buffer0[4];
 				mem1[0] <= input_buffer1[2];mem1[1] <= input_buffer1[3];mem1[2] <= input_buffer1[4];
 				mem2[0] <= input_buffer2[2];mem2[1] <= input_buffer2[3];mem2[2] <= input_buffer2[4];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			3:begin
 				mem0[0] <= input_buffer0[3];mem0[1] <= input_buffer0[4];mem0[2] <= input_buffer0[5];
 				mem1[0] <= input_buffer1[3];mem1[1] <= input_buffer1[4];mem1[2] <= input_buffer1[5];
 				mem2[0] <= input_buffer2[3];mem2[1] <= input_buffer2[4];mem2[2] <= input_buffer2[5];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			4:begin
 				mem0[0] <= input_buffer0[4];mem0[1] <= input_buffer0[5];mem0[2] <= input_buffer0[6];
 				mem1[0] <= input_buffer1[4];mem1[1] <= input_buffer1[5];mem1[2] <= input_buffer1[6];
 				mem2[0] <= input_buffer2[4];mem2[1] <= input_buffer2[5];mem2[2] <= input_buffer2[6];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			5:begin
 				mem0[0] <= input_buffer0[5];mem0[1] <= input_buffer0[6];mem0[2] <= input_buffer0[7];
 				mem1[0] <= input_buffer1[5];mem1[1] <= input_buffer1[6];mem1[2] <= input_buffer1[7];
 				mem2[0] <= input_buffer2[5];mem2[1] <= input_buffer2[6];mem2[2] <= input_buffer2[7];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			6:begin
 				mem0[0] <= input_buffer0[6];mem0[1] <= input_buffer0[7];mem0[2] <= input_buffer0[8];
 				mem1[0] <= input_buffer1[6];mem1[1] <= input_buffer1[7];mem1[2] <= input_buffer1[8];
 				mem2[0] <= input_buffer2[6];mem2[1] <= input_buffer2[7];mem2[2] <= input_buffer2[8];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			7:begin
 				mem0[0] <= input_buffer0[7];mem0[1] <= input_buffer0[8];mem0[2] <= input_buffer0[9];
 				mem1[0] <= input_buffer1[7];mem1[1] <= input_buffer1[8];mem1[2] <= input_buffer1[9];
 				mem2[0] <= input_buffer2[7];mem2[1] <= input_buffer2[8];mem2[2] <= input_buffer2[9];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			8:begin
 				mem0[0] <= input_buffer0[8];mem0[1] <= input_buffer0[9];mem0[2] <= input_buffer0[10];
 				mem1[0] <= input_buffer1[8];mem1[1] <= input_buffer1[9];mem1[2] <= input_buffer1[10];
 				mem2[0] <= input_buffer2[8];mem2[1] <= input_buffer2[9];mem2[2] <= input_buffer2[10];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			9:begin
 				mem0[0] <= input_buffer0[9];mem0[1] <= input_buffer0[10];mem0[2] <= input_buffer0[11];
 				mem1[0] <= input_buffer1[9];mem1[1] <= input_buffer1[10];mem1[2] <= input_buffer1[11];
 				mem2[0] <= input_buffer2[9];mem2[1] <= input_buffer2[10];mem2[2] <= input_buffer2[11];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			10:begin
 				mem0[0] <= input_buffer0[10];mem0[1] <= input_buffer0[11];mem0[2] <= input_buffer0[12];
 				mem1[0] <= input_buffer1[10];mem1[1] <= input_buffer1[11];mem1[2] <= input_buffer1[12];
 				mem2[0] <= input_buffer2[10];mem2[1] <= input_buffer2[11];mem2[2] <= input_buffer2[12];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			11:begin
 				mem0[0] <= input_buffer0[11];mem0[1] <= input_buffer0[12];mem0[2] <= input_buffer0[13];
 				mem1[0] <= input_buffer1[11];mem1[1] <= input_buffer1[12];mem1[2] <= input_buffer1[13];
 				mem2[0] <= input_buffer2[11];mem2[1] <= input_buffer2[12];mem2[2] <= input_buffer2[13];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			12:begin
 				mem0[0] <= input_buffer0[12];mem0[1] <= input_buffer0[13];mem0[2] <= input_buffer0[14];
 				mem1[0] <= input_buffer1[12];mem1[1] <= input_buffer1[13];mem1[2] <= input_buffer1[14];
 				mem2[0] <= input_buffer2[12];mem2[1] <= input_buffer2[13];mem2[2] <= input_buffer2[14];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			13:begin
 				mem0[0] <= input_buffer0[13];mem0[1] <= input_buffer0[14];mem0[2] <= input_buffer0[15];
 				mem1[0] <= input_buffer1[13];mem1[1] <= input_buffer1[14];mem1[2] <= input_buffer1[15];
 				mem2[0] <= input_buffer2[13];mem2[1] <= input_buffer2[14];mem2[2] <= input_buffer2[15];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			14:begin
 				mem0[0] <= input_buffer0[14];mem0[1] <= input_buffer0[15];mem0[2] <= input_buffer0[16];
 				mem1[0] <= input_buffer1[14];mem1[1] <= input_buffer1[15];mem1[2] <= input_buffer1[16];
 				mem2[0] <= input_buffer2[14];mem2[1] <= input_buffer2[15];mem2[2] <= input_buffer2[16];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			15:begin
 				mem0[0] <= input_buffer0[15];mem0[1] <= input_buffer0[16];mem0[2] <= input_buffer0[17];
 				mem1[0] <= input_buffer1[15];mem1[1] <= input_buffer1[16];mem1[2] <= input_buffer1[17];
 				mem2[0] <= input_buffer2[15];mem2[1] <= input_buffer2[16];mem2[2] <= input_buffer2[17];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			16:begin
 				mem0[0] <= input_buffer0[16];mem0[1] <= input_buffer0[17];mem0[2] <= input_buffer0[18];
 				mem1[0] <= input_buffer1[16];mem1[1] <= input_buffer1[17];mem1[2] <= input_buffer1[18];
 				mem2[0] <= input_buffer2[16];mem2[1] <= input_buffer2[17];mem2[2] <= input_buffer2[18];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			17:begin
 				mem0[0] <= input_buffer0[17];mem0[1] <= input_buffer0[18];mem0[2] <= input_buffer0[19];
 				mem1[0] <= input_buffer1[17];mem1[1] <= input_buffer1[18];mem1[2] <= input_buffer1[19];
 				mem2[0] <= input_buffer2[17];mem2[1] <= input_buffer2[18];mem2[2] <= input_buffer2[19];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			18:begin
 				mem0[0] <= input_buffer0[18];mem0[1] <= input_buffer0[19];mem0[2] <= input_buffer0[20];
 				mem1[0] <= input_buffer1[18];mem1[1] <= input_buffer1[19];mem1[2] <= input_buffer1[20];
 				mem2[0] <= input_buffer2[18];mem2[1] <= input_buffer2[19];mem2[2] <= input_buffer2[20];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			19:begin
 				mem0[0] <= input_buffer0[19];mem0[1] <= input_buffer0[20];mem0[2] <= input_buffer0[21];
 				mem1[0] <= input_buffer1[19];mem1[1] <= input_buffer1[20];mem1[2] <= input_buffer1[21];
 				mem2[0] <= input_buffer2[19];mem2[1] <= input_buffer2[20];mem2[2] <= input_buffer2[21];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			20:begin
 				mem0[0] <= input_buffer0[20];mem0[1] <= input_buffer0[21];mem0[2] <= input_buffer0[22];
 				mem1[0] <= input_buffer1[20];mem1[1] <= input_buffer1[21];mem1[2] <= input_buffer1[22];
 				mem2[0] <= input_buffer2[20];mem2[1] <= input_buffer2[21];mem2[2] <= input_buffer2[22];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			21:begin
 				mem0[0] <= input_buffer0[21];mem0[1] <= input_buffer0[22];mem0[2] <= input_buffer0[23];
 				mem1[0] <= input_buffer1[21];mem1[1] <= input_buffer1[22];mem1[2] <= input_buffer1[23];
 				mem2[0] <= input_buffer2[21];mem2[1] <= input_buffer2[22];mem2[2] <= input_buffer2[23];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			22:begin
 				mem0[0] <= input_buffer0[22];mem0[1] <= input_buffer0[23];mem0[2] <= input_buffer0[24];
 				mem1[0] <= input_buffer1[22];mem1[1] <= input_buffer1[23];mem1[2] <= input_buffer1[24];
 				mem2[0] <= input_buffer2[22];mem2[1] <= input_buffer2[23];mem2[2] <= input_buffer2[24];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			23:begin
 				mem0[0] <= input_buffer0[23];mem0[1] <= input_buffer0[24];mem0[2] <= input_buffer0[25];
 				mem1[0] <= input_buffer1[23];mem1[1] <= input_buffer1[24];mem1[2] <= input_buffer1[25];
 				mem2[0] <= input_buffer2[23];mem2[1] <= input_buffer2[24];mem2[2] <= input_buffer2[25];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			24:begin
 				mem0[0] <= input_buffer0[24];mem0[1] <= input_buffer0[25];mem0[2] <= input_buffer0[26];
 				mem1[0] <= input_buffer1[24];mem1[1] <= input_buffer1[25];mem1[2] <= input_buffer1[26];
 				mem2[0] <= input_buffer2[24];mem2[1] <= input_buffer2[25];mem2[2] <= input_buffer2[26];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			25:begin
 				mem0[0] <= input_buffer0[25];mem0[1] <= input_buffer0[26];mem0[2] <= input_buffer0[27];
 				mem1[0] <= input_buffer1[25];mem1[1] <= input_buffer1[26];mem1[2] <= input_buffer1[27];
 				mem2[0] <= input_buffer2[25];mem2[1] <= input_buffer2[26];mem2[2] <= input_buffer2[27];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			26:begin
 				mem0[0] <= input_buffer0[26];mem0[1] <= input_buffer0[27];mem0[2] <= input_buffer0[28];
 				mem1[0] <= input_buffer1[26];mem1[1] <= input_buffer1[27];mem1[2] <= input_buffer1[28];
 				mem2[0] <= input_buffer2[26];mem2[1] <= input_buffer2[27];mem2[2] <= input_buffer2[28];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			27:begin
 				mem0[0] <= input_buffer0[27];mem0[1] <= input_buffer0[28];mem0[2] <= input_buffer0[29];
 				mem1[0] <= input_buffer1[27];mem1[1] <= input_buffer1[28];mem1[2] <= input_buffer1[29];
 				mem2[0] <= input_buffer2[27];mem2[1] <= input_buffer2[28];mem2[2] <= input_buffer2[29];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			28:begin
 				mem0[0] <= input_buffer0[28];mem0[1] <= input_buffer0[29];mem0[2] <= input_buffer0[30];
 				mem1[0] <= input_buffer1[28];mem1[1] <= input_buffer1[29];mem1[2] <= input_buffer1[30];
 				mem2[0] <= input_buffer2[28];mem2[1] <= input_buffer2[29];mem2[2] <= input_buffer2[30];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
 			29:begin
 				mem0[0] <= input_buffer0[29];mem0[1] <= input_buffer0[30];mem0[2] <= input_buffer0[31];
 				mem1[0] <= input_buffer1[29];mem1[1] <= input_buffer1[30];mem1[2] <= input_buffer1[31];
 				mem2[0] <= input_buffer2[29];mem2[1] <= input_buffer2[30];mem2[2] <= input_buffer2[31];
-				clk_counter <= clk_counter + 6'b000001;
+				counter <= counter + 6'b000001;
 			end
             // input_buffer 轮换:1->0,2->1,新输入->2
             30:begin
@@ -425,7 +421,7 @@ begin
 				input_buffer0[29] <= input_buffer1[29];
 				input_buffer0[30] <= input_buffer1[30];
 				input_buffer0[31] <= input_buffer1[31];
-                clk_counter <= clk_counter + 6'b000001;
+                counter <= counter + 6'b000001;
             end
             31:begin
 				input_buffer1[0] <= input_buffer2[0];
@@ -460,7 +456,7 @@ begin
 				input_buffer1[29] <= input_buffer2[29];
 				input_buffer1[30] <= input_buffer2[30];
 				input_buffer1[31] <= input_buffer2[31];
-                clk_counter <= clk_counter + 6'b000001;
+                counter <= counter + 6'b000001;
             end
             32:begin
 				input_buffer2[0] <= data_in00;
@@ -495,31 +491,41 @@ begin
 				input_buffer2[29] <= data_in29;
 				input_buffer2[30] <= data_in30;
 				input_buffer2[31] <= data_in31;
-                clk_counter <= clk_counter + 6'b000001;
+                counter <= counter + 6'b000001;
             end
-            default:clk_counter <= 6'b000000;
+            default:counter <= 6'b000000;
         endcase
     end
 
 end
 
 // 运算部分
-conv_unit conv_unit0(clk,rst_n,
-                    mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
-                    weight_in00,weight_in01,weight_in02,weight_in03,weight_in04,weight_in05,weight_in06,weight_in07,weight_in08,
-                    output_buffer0);
-conv_unit conv_unit1(clk,rst_n,
-                    mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
-                    weight_in09,weight_in10,weight_in11,weight_in12,weight_in13,weight_in14,weight_in15,weight_in16,weight_in17,
-                    output_buffer1);
-conv_unit conv_unit2(clk,rst_n,
-                    mem0[0],mem0[1],mem0[2],mem1[0],mem1[1],mem1[2],mem2[0],mem2[1],mem2[2],
-                    weight_in18,weight_in19,weight_in20,weight_in21,weight_in22,weight_in23,weight_in24,weight_in25,weight_in26,
-                    output_buffer2);
-
-// 输出部分
-assign data_out0 = output_buffer0;
-assign data_out1 = output_buffer1;
-assign data_out2 = output_buffer2;
+conv_unit conv_unit0(.clk(clk),
+					 .rst_n(rst_n),
+					 .a00(mem0[0]),.a01(mem0[1]),.a02(mem0[2]),
+					 .a10(mem1[0]),.a11(mem1[1]),.a12(mem1[2]),
+					 .a20(mem2[0]),.a21(mem2[1]),.a22(mem2[2]),
+					 .b00(weight_in00),.b01(weight_in01),.b02(weight_in02),
+					 .b10(weight_in03),.b11(weight_in04),.b12(weight_in05),
+					 .b20(weight_in06),.b21(weight_in07),.b22(weight_in08),
+					 .out(data_out0));
+conv_unit conv_unit1(.clk(clk),
+					 .rst_n(rst_n),
+					 .a00(mem0[0]),.a01(mem0[1]),.a02(mem0[2]),
+					 .a10(mem1[0]),.a11(mem1[1]),.a12(mem1[2]),
+					 .a20(mem2[0]),.a21(mem2[1]),.a22(mem2[2]),
+					 .b00(weight_in09),.b01(weight_in10),.b02(weight_in11),
+					 .b10(weight_in12),.b11(weight_in13),.b12(weight_in14),
+					 .b20(weight_in15),.b21(weight_in16),.b22(weight_in17),
+					 .out(data_out1));
+conv_unit conv_unit2(.clk(clk),
+					 .rst_n(rst_n),
+					 .a00(mem0[0]),.a01(mem0[1]),.a02(mem0[2]),
+					 .a10((mem1[0])),.a11(mem1[1]),.a12(mem1[2]),
+					 .a20(mem2[0]),.a21(mem2[1]),.a22(mem2[2]),
+					 .b00(weight_in18),.b01(weight_in19),.b02(weight_in20),
+					 .b10(weight_in21),.b11(weight_in22),.b12(weight_in23),
+					 .b20(weight_in24),.b21(weight_in25),.b22(weight_in26),
+					 .out(data_out2));
 
 endmodule

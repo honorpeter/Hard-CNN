@@ -39,7 +39,7 @@ end
 always@(*)
 begin
     #1
-    clk = ~clk;
+    clk <= ~clk;
 end
 
 //always@(posedge clk)
