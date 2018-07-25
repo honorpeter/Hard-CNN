@@ -12,19 +12,27 @@ module conv_pe_sr#(parameter WIDTH = 9)
 );
 
 reg [3:0] weight_counter;
-reg [WIDTH-1:0] weight_buffer [8:0];
+reg [WIDTH-1:0] weight_buffer0;
+reg [WIDTH-1:0] weight_buffer1;
+reg [WIDTH-1:0] weight_buffer2;
+reg [WIDTH-1:0] weight_buffer3;
+reg [WIDTH-1:0] weight_buffer4;
+reg [WIDTH-1:0] weight_buffer5;
+reg [WIDTH-1:0] weight_buffer6;
+reg [WIDTH-1:0] weight_buffer7;
+reg [WIDTH-1:0] weight_buffer8;
 
 reg [6:0] clk_counter;
 
 reg rst_n_cu;// conv_unit's rst_n
 
-reg [2*WIDTH-1:0] out_debug;// debug
+reg [2*WIDTH-1:0] out_debug;// debug output signal
 
 initial
 begin
     weight_counter = 0;
     clk_counter = 0;
-    rst_n_cu = 0;
+    rst_n_cu = 1'b0;
     out_debug = 11;
 end
 
@@ -40,15 +48,15 @@ begin
     if(rst_n && weight_in)//???是否合理
     begin
         case (weight_counter)
-            0: weight_buffer[0] <= weight_in;
-            1: weight_buffer[1] <= weight_in;
-            2: weight_buffer[2] <= weight_in;
-            3: weight_buffer[3] <= weight_in;
-            4: weight_buffer[4] <= weight_in;
-            5: weight_buffer[5] <= weight_in;
-            6: weight_buffer[6] <= weight_in;
-            7: weight_buffer[7] <= weight_in;
-            8: weight_buffer[8] <= weight_in;
+            0: weight_buffer0 <= weight_in;
+            1: weight_buffer1 <= weight_in;
+            2: weight_buffer2 <= weight_in;
+            3: weight_buffer3 <= weight_in;
+            4: weight_buffer4 <= weight_in;
+            5: weight_buffer5 <= weight_in;
+            6: weight_buffer6 <= weight_in;
+            7: weight_buffer7 <= weight_in;
+            8: weight_buffer8 <= weight_in;
             default: weight_counter <= 0;
         endcase
     end
@@ -83,7 +91,7 @@ always@(posedge clk)
 begin
     if(rst_n)
     begin
-        rst_n_cu <= (clk_counter < 97)? 0 : 1;
+        rst_n_cu <= (clk_counter < 97)? 1 : 0;
     end
 end
 
@@ -93,11 +101,11 @@ conv_unit cu0(.clk(clk),
               .a00(sr_out0),.a01(sr_out1),.a02(sr_out2),
               .a10(sr_out3),.a11(sr_out4),.a12(sr_out5),
               .a20(sr_out6),.a21(sr_out7),.a22(sr_out8),
-              .b00(weight_buffer[0]),.b01(weight_buffer[1]),.b02(weight_buffer[2]),
-              .b10(weight_buffer[3]),.b11(weight_buffer[4]),.b12(weight_buffer[5]),
-              .b20(weight_buffer[6]),.b21(weight_buffer[7]),.b22(weight_buffer[8]),
-              .out());
+              .b00(weight_buffer0),.b01(weight_buffer1),.b02(weight_buffer2),
+              .b10(weight_buffer3),.b11(weight_buffer4),.b12(weight_buffer5),
+              .b20(weight_buffer6),.b21(weight_buffer7),.b22(weight_buffer8),
+              .out(data_out));
 
-assign data_out = out_debug;
+// assign data_out = out_debug;
 
 endmodule

@@ -14,6 +14,8 @@ reg [6:0] clk_counter;
 initial
 begin
     clk = 1'b0;
+    rst_n = 1'b0;
+    #10
     rst_n = 1'b1;
     clk_counter = 6'b0;
 end
