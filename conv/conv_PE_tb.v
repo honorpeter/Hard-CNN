@@ -118,13 +118,13 @@ begin
     begin
         case (clk_counter)
 /*
-0	0	0	1	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2
+1	0	0	1	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2
 0	0	1	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2	1
-0	1	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2	1	0
+0	1	1	0	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2	1	1	0	0	1	1	2	2	1	0
 */
             0: begin
                 init = 1;
-                data_in00 = 0;	data_in01 = 0;	data_in02 = 0;	data_in03 = 1;	
+                data_in00 = 1;	data_in01 = 0;	data_in02 = 0;	data_in03 = 1;	
                 data_in04 = 1;	data_in05 = 1;	data_in06 = 2;	data_in07 = 2;	
                 data_in08 = 1;	data_in09 = 1;	data_in10 = 0;	data_in11 = 0;	
                 data_in12 = 1;	data_in13 = 1;	data_in14 = 2;	data_in15 = 2;	
@@ -146,7 +146,7 @@ begin
             end
             2: begin
                 init = 1;
-                data_in00 = 0;	data_in01 = 1;	data_in02 = 1;	data_in03 = 1;	
+                data_in00 = 0;	data_in01 = 1;	data_in02 = 1;	data_in03 = 0;	
                 data_in04 = 2;	data_in05 = 2;	data_in06 = 1;	data_in07 = 1;	
                 data_in08 = 0;	data_in09 = 0;	data_in10 = 1;	data_in11 = 1;	
                 data_in12 = 2;	data_in13 = 2;	data_in14 = 1;	data_in15 = 1;	
