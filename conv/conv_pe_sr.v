@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 // PE module with shift register
 // 
-module conv_PE#(parameter WIDTH = 9)
+module conv_pe_sr#(parameter WIDTH = 9)
 (
     input clk,
     input rst_n,
@@ -35,7 +35,7 @@ end
 // weight input logic
 always@(posedge clk)
 begin
-    if(rst_n && weight_in)
+    if(rst_n && weight_in)//???是否合理
     begin
         case (weight_counter)
             0: weight_buffer[0] <= weight_in;

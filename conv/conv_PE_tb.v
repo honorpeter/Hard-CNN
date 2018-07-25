@@ -173,6 +173,7 @@ end
 conv_PE conv_PE_t(
                   .clk(clk),
                   .rst_n(rst_n),
+                  .init(init),
                   .data_in00(data_in00),
 				  .data_in01(data_in01),
 				  .data_in02(data_in02),
