@@ -28,7 +28,7 @@ end
 
 always@(posedge clk)
 begin
-    clk_counter <= (clk_counter < 96) ? (clk_counter + 1) : 0;
+    clk_counter <= (rst_n && (clk_counter < 96)) ? (clk_counter + 1) : 0;
 end
 
 /*

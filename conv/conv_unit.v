@@ -31,17 +31,17 @@ wire [2 * WIDTH - 1:0] p8;
 
 wire [2 * WIDTH - 1:0] out_buffer;
 
-mul mul0(.a(a00),.b(b00),.out(p0));
-mul mul1(.a(a01),.b(b01),.out(p1));
-mul mul2(.a(a02),.b(b02),.out(p2));
-mul mul3(.a(a10),.b(b10),.out(p3));
-mul mul4(.a(a11),.b(b11),.out(p4));
-mul mul5(.a(a12),.b(b12),.out(p5));
-mul mul6(.a(a20),.b(b20),.out(p6));
-mul mul7(.a(a21),.b(b21),.out(p7));
-mul mul8(.a(a22),.b(b22),.out(p8));
+mul mul0(.clk(clk),.rst_n(rst_n),.a(a00),.b(b00),.out(p0));
+mul mul1(.clk(clk),.rst_n(rst_n),.a(a01),.b(b01),.out(p1));
+mul mul2(.clk(clk),.rst_n(rst_n),.a(a02),.b(b02),.out(p2));
+mul mul3(.clk(clk),.rst_n(rst_n),.a(a10),.b(b10),.out(p3));
+mul mul4(.clk(clk),.rst_n(rst_n),.a(a11),.b(b11),.out(p4));
+mul mul5(.clk(clk),.rst_n(rst_n),.a(a12),.b(b12),.out(p5));
+mul mul6(.clk(clk),.rst_n(rst_n),.a(a20),.b(b20),.out(p6));
+mul mul7(.clk(clk),.rst_n(rst_n),.a(a21),.b(b21),.out(p7));
+mul mul8(.clk(clk),.rst_n(rst_n),.a(a22),.b(b22),.out(p8));
 
-adder_tree adder_tree0(.a0(p0),.a1(p1),.b0(p2),.b1(p3),.c0(p4),.c1(p5),.d0(p6),.d1(p7),.e(p8),.sum(out_buffer));
+adder_tree adder_tree0(.clk(clk),.rst_n(rst_n),.a0(p0),.a1(p1),.b0(p2),.b1(p3),.c0(p4),.c1(p5),.d0(p6),.d1(p7),.e(p8),.sum(out_buffer));
 
 assign out = out_buffer;
 

@@ -3,6 +3,8 @@
 
 module mul#(parameter WIDTH = 9)
 (
+	input clk,
+	input rst_n,
     input signed [WIDTH - 1 : 0] a,
 	input signed [WIDTH - 1 : 0] b,
     
@@ -11,9 +13,10 @@ module mul#(parameter WIDTH = 9)
 
 reg [2 * WIDTH -1 : 0] product;
 
-always@(*)
+always@(posedge clk)
 begin
-	product <= a * b;
+	if(rst_n)
+		product <= a * b;
 end
 
 assign out = product;
