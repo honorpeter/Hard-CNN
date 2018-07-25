@@ -41,33 +41,15 @@ begin
     if(rst_n)
     begin
         case (clk_counter)
-            0: begin
-            data_in <= 2;   weight_in <= 1;
-            end
-            1: begin
-            data_in <= 1;   weight_in <= 2;
-            end
-			2: begin
-            data_in <= 1;   weight_in <= 3;
-            end
-			3: begin
-            data_in <= 2;   weight_in <= 2;
-            end
-			4: begin
-            data_in <= 2;   weight_in <= 3;
-            end
-			5: begin
-            data_in <= 2;   weight_in <= 4;
-            end
-			6: begin
-            data_in <= 3;   weight_in <= 3;
-            end
-			7: begin
-            data_in <= 3;   weight_in <= 4;
-            end
-			8: begin
-            data_in <= 2;   weight_in <= 5;
-            end
+            0: data_in <= 2;
+            1: data_in <= 1;
+			2: data_in <= 1;
+			3: data_in <= 2;
+			4: data_in <= 2;
+			5: data_in <= 2;
+			6: data_in <= 3;
+			7: data_in <= 3;
+			8: data_in <= 2;
 			9: data_in <= 2;
 			10: data_in <= 1;
 			11: data_in <= 1;
@@ -157,6 +139,30 @@ begin
 			95: data_in <= 2;
 			96: data_in <= 1; 
             default: data_in <= 0;
+        endcase
+    end
+end
+
+/*
+1	2	3
+2	3	4
+3	4	5
+*/
+always@(posedge clk)
+begin
+    if(rst_n)
+    begin
+        case (clk_counter)
+            0: weight_in <= 1;
+            1: weight_in <= 2;
+			2: weight_in <= 3;
+			3: weight_in <= 2;
+			4: weight_in <= 3;
+			5: weight_in <= 4;
+			6: weight_in <= 3;
+			7: weight_in <= 4;
+			8: weight_in <= 5;
+            default:  weight_in <= 0;
         endcase
     end
 end
