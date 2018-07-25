@@ -39,7 +39,7 @@ end
 // clk_counter 自增加
 always@(posedge clk)
 begin
-    clk_counter <= (rst_n && (clk_counter < 107)) ? (clk_counter + 1) : 0;// 107 = 96 + 1 + 9 + 1
+    clk_counter <= (rst_n && (clk_counter < 106)) ? (clk_counter + 1) : 0;// 107 = 96 + 9 + 1
 end
 
 // weight input logic
