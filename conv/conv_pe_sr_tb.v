@@ -7,7 +7,7 @@ reg rst_n;
 reg [WIDTH-1:0] data_in;
 reg [WIDTH-1:0] weight_in;
 
-wire [WIDTH-1:0] data_out;
+wire [2*WIDTH-1:0] data_out;
 
 reg [6:0] clk_counter;
 
@@ -160,7 +160,7 @@ begin
 end
 
 conv_pe_sr pe0(.clk(clk),
-               .rst_n(rst_n,
+               .rst_n(rst_n),
                .data_in(data_in),
                .weight_in(weight_in),
                .data_out(data_out));

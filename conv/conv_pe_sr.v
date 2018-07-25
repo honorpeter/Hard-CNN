@@ -8,7 +8,7 @@ module conv_pe_sr#(parameter WIDTH = 9)
 
     input [WIDTH-1:0] data_in,
     input [WIDTH-1:0] weight_in,
-    output [WIDTH-1:0] data_out
+    output [2*WIDTH-1:0] data_out
 );
 
 reg [3:0] weight_counter;
@@ -18,12 +18,14 @@ reg [6:0] clk_counter;
 
 reg rst_n_cu;// conv_unit's rst_n
 
+reg [2*WIDTH-1:0] out_debug;// debug
+
 initial
 begin
-    rst_n = 1;
     weight_counter = 0;
     clk_counter = 0;
     rst_n_cu = 0;
+    out_debug = 11;
 end
 
 // clk_counter 自增加
@@ -94,6 +96,8 @@ conv_unit cu0(.clk(clk),
               .b00(weight_buffer[0]),.b01(weight_buffer[1]),.b02(weight_buffer[2]),
               .b10(weight_buffer[3]),.b11(weight_buffer[4]),.b12(weight_buffer[5]),
               .b20(weight_buffer[6]),.b21(weight_buffer[7]),.b22(weight_buffer[8]),
-              .out(data_out));
+              .out());
+
+assign data_out = out_debug;
 
 endmodule
